@@ -1,14 +1,12 @@
-from tkinter import *
+# from tkinter import *
 import webbrowser
 import sqlite3
+from tkinter import Button, Entry, IntVar, Label, OptionMenu, Radiobutton, StringVar, Tk, Toplevel
 
 
 root = Tk()
 root.geometry('640x600')
 root.title("Exam Registration Form")
-# create = sqlite3.Cursor()
-# query = """D:\sqlite3\Registration.db"""
-# create.execute(query)
 conn = sqlite3.connect('Registration.db')
 
 firstN = StringVar()
@@ -76,7 +74,7 @@ def retrieveWindow():
     Em = email.get()
     if(Em == ""):
         Label(
-            retrieveWin, text="_/\_ Please enter your valid email address").place(x=20, y=10)
+            retrieveWin, text="Email WRONG/NOT FOUND").place(x=40, y=40)
     else:
         cur.execute("SELECT *FROM Student WHERE email=?", (email.get(),))
         rows = cur.fetchall()
