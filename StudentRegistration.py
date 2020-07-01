@@ -26,13 +26,13 @@ category = StringVar()
 nationality = StringVar()
 
 
-
 def isVerified():
     print("Inside Verified")
     if firstN.get() == "" or gender.get() == "" or add1.get() == "" or DOB.get() == "" or city.get() == "" or pincode.get() == 0 or state.get() == "" or email.get() == "" or category.get() == "" or nationality.get() == "" or country.get() == "Please Select":
         return 0
     else:
         return 1
+
 
 def Update():
     if isVerified() == 0:
@@ -216,8 +216,11 @@ Button(root, text='Retrieve', width=20, bg='brown',
 
 
 def openLink():
-    webbrowser.open('https://github.com/')
+    webbrowser.open(
+        'https://github.com/sauravgpt/NIMCETRegistrationDBMSProject/blob/master/StudentRegistration.py')
 
-Button(root, text = 'Source code on GitHub', width=35, bg='blue', fg='white', command=openLink).place(x=360, y= 500)
+
+Button(root, text='Source code on GitHub', width=35, bg='blue',
+       fg='white', command=openLink).place(x=360, y=500)
 
 root.mainloop()
