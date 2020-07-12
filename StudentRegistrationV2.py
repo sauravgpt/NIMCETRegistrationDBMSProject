@@ -1,4 +1,3 @@
-# from tkinter import *
 import webbrowser
 import sqlite3
 from tkinter import Button, Entry, IntVar, Label, OptionMenu, Radiobutton, StringVar, Tk, Toplevel
@@ -24,9 +23,24 @@ category = StringVar()
 nationality = StringVar()
 
 
+def clearForm():
+    firstN.set('')
+    lastN.set('')
+    gender.set('')
+    DOB.set('')
+    add1.set('')
+    add2.set('')
+    city.set('')
+    pincode.set(0)
+    state.set('')
+    country.set('')
+    email.set('')
+    category.set('')
+    nationality.set('')
+
 def isVerified():
     print("Inside Verified")
-    if firstN.get() == "" or gender.get() == "" or add1.get() == "" or DOB.get() == "" or city.get() == "" or pincode.get() == 0 or state.get() == "" or email.get() == "" or category.get() == "" or nationality.get() == "" or country.get() == "Please Select":
+    if len(firstN.get()) == 0 or len(gender.get()) == 0 or len(add1.get()) == 0 or len(DOB.get()) == 0 or len(city.get()) == 0 or (pincode.get()) == 0 or len(state.get()) == 0 or len(email.get()) == 0 or len(category.get()) == 0 or len(nationality.get()) == 0 or country.get() == "Please Select":
         return 0
     else:
         return 1
@@ -61,22 +75,26 @@ def Update():
                         Pincode, State, Country, Category, Nationality, Email)
                 cursor.execute(query, data)
                 conn.commit()
+                Label(root, text="Submitted Successfully                                     ").place(
+                    x=20, y=450)
                 print('Record Updated Successfully')
             else:
                 Label(root, text="Email provided does not exists           ",).place(
                     x=20, y=450)
+    clearForm()
+
 
 def deleteRecord():
     curr = conn.cursor()
     curr.execute("DELETE FROM Student WHERE email=?", (email.get(),))
+    clearForm()
     conn.commit()
+
 
 def retrieveWindow():
     retrieveWin = Toplevel(root)
     retrieveWin.geometry('400x400')
     cur = conn.cursor()
-    Em = email.get()
-
     cur.execute("SELECT *FROM Student WHERE email=?", (email.get(),))
     rows = cur.fetchall()
     if(len(rows) == 0):
@@ -99,16 +117,18 @@ def retrieveWindow():
         Label(retrieveWin, text=rows[0][6]).place(x=30, y=125)
         Label(retrieveWin, text=rows[0][7]).place(x=70, y=125)
         Label(retrieveWin, text="Email:       " +
-                rows[0][8]).place(x=30, y=140)
+              rows[0][8]).place(x=30, y=140)
         Label(retrieveWin, text="Category:        " +
-                rows[0][9]).place(x=30, y=155)
+              rows[0][9]).place(x=30, y=155)
         if rows[0][10] == "IN":
             cat = "India"
         else:
             cat = "Foriegn Country"
         Label(retrieveWin, text="Nationality:     " + cat).place(x=30, y=172)
-        Button(retrieveWin, text='Delete', width=20, bg='red', fg='white', command=deleteRecord).place(x=70, y=210)
+        Button(retrieveWin, text='Delete', width=20, bg='brown',
+               fg='white', command=deleteRecord).place(x=70, y=210)
     conn.commit()
+    clearForm()
 
 
 def database():
@@ -136,6 +156,7 @@ def database():
         conn.commit()
         Label(root, text="Submitted Successfully                                     ").place(
             x=20, y=450)
+        clearForm()
 
 
 Label(root, text="               NIMCET 2020 Registration form",
@@ -218,6 +239,8 @@ Button(root, text='Update', width=20, bg='brown',
 Entry(root, textvar=email, width=30).place(x=30, y=420)
 Button(root, text='Retrieve', width=20, bg='brown',
        fg='white', command=retrieveWindow).place(x=220, y=420)
+Button(root, text='Clear', width=20, bg='brown',
+       fg='white', command=clearForm).place(x=370, y=380)
 
 
 def openLink():
