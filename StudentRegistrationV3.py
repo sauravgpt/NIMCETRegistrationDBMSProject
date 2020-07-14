@@ -130,8 +130,10 @@ def retrieveUtil():
     cur.execute("SELECT * FROM Student WHERE email=?", (email.get(),))
     fetchedEmail = cur.fetchall()
     conn.commit()
-    if len(fetchedEmail) == 0 and len(passwd.get()) == 0:
+    if len(fetchedEmail) == 0:
         Label(root, text="Email not matched                                     ").place(x=20, y=500)
+    elif len(passwd.get()) != 0 and len(fetchedEmail) == 0:
+        Label(root, text="Please enter email                                     ").place(x=20, y=500)
     else:
         data = fetchData()
         if data == -1:
