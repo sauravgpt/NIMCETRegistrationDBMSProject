@@ -289,7 +289,7 @@ Button(root, text='Clear', width=20, bg='brown', fg='white', command=clearForm).
 
 
 def openLink():
-    webbrowser.open('https://github.com/sauravgpt/NIMCETRegistrationDBMSProject/edit/master/StudentRegistrationV2.py')
+    webbrowser.open('https://github.com/sauravgpt/NIMCETRegistrationDBMSProject/edit/master/StudentRegistrationV3.py')
 
 
 Button(root, text='Source code on GitHub', width=35, bg='blue', fg='white', command=openLink).place(x=360, y=500)
